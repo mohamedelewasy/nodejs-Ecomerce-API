@@ -5,6 +5,7 @@ const {
   getSub,
   updateSub,
   deleteSub,
+  getCategoryId,
 } = require("../services/subcategoryServices");
 const {
   createSubValidator,
@@ -16,13 +17,13 @@ const {
 
 router
   .route("/:categorySlug/subcategories")
-  .get(getAllSubsValidator, getAllSubs)
-  .post(createSubValidator, createSub);
+  .get(getAllSubsValidator, getCategoryId, getAllSubs)
+  .post(createSubValidator, getCategoryId, createSub);
 
 router
   .route("/:categorySlug/subcategories/:slug")
-  .get(getSubValidator, getSub)
-  .put(updateSubValidator, updateSub)
-  .delete(deleteSubValidator, deleteSub);
+  .get(getSubValidator, getCategoryId, getSub)
+  .put(updateSubValidator, getCategoryId, updateSub)
+  .delete(deleteSubValidator, getCategoryId, deleteSub);
 
 module.exports = router;

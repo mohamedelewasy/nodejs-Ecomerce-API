@@ -39,7 +39,7 @@ dbConnection().then((conn) => {
 // handle rejections outer express
 process.on("unhandledRejection", (err) => {
   console.log(`unhandeled rejection with error : ${err}`);
-  server.close(() => {
+  app.close(() => {
     process.exit(1);
   });
 });
