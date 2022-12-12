@@ -1,12 +1,16 @@
+const path = require("path");
+
 const express = require("express");
 const dotenv = require("dotenv").config();
 const morgan = require("morgan");
+
 const ApiError = require("./errors/apiError");
 
 const app = express();
 
 // setup middlewares
 app.use(express.json({}));
+app.use(express.static(path.join(__dirname, "uploads")));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }

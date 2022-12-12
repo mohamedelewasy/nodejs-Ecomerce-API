@@ -31,6 +31,7 @@ exports.createBrandValidator = [
 
 exports.updateBrandValidator = [
   check("name")
+    .optional()
     .notEmpty()
     .withMessage("new name is required")
     .custom((val, { req }) => {

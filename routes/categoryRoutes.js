@@ -4,8 +4,10 @@ const {
   getAllCategories,
   getCategory,
   createCategory,
+  uploadCategoryImage,
   updateCategory,
   deleteCategory,
+  resizeCategoryImage,
 } = require("../services/categoryServices");
 
 const {
@@ -18,11 +20,21 @@ const {
 router
   .route("/categories")
   .get(getAllCategories)
-  .post(createCategoryValidator, createCategory);
+  .post(
+    uploadCategoryImage,
+    resizeCategoryImage,
+    createCategoryValidator,
+    createCategory
+  );
 router
   .route("/categories/:slug")
   .get(getCategoryValidator, getCategory)
-  .put(updateCategoryValidator, updateCategory)
+  .put(
+    uploadCategoryImage,
+    resizeCategoryImage,
+    updateCategoryValidator,
+    updateCategory
+  )
   .delete(deleteCategoryValidator, deleteCategory);
 
 module.exports = router;

@@ -76,6 +76,30 @@ ProductSchema.pre(/find/, function (next) {
   next();
 });
 
+const setImageUrl = (doc) => {
+  if (doc.imageCover) {
+    const imageURL = `${process.env.BASE_URL}/products/${doc.imageCover}`;
+    doc.imageCover = imageURL;
+  }
+  if (doc.images) {
+    let customImages = [];
+    doc.images.map((img) => {
+      customImages.push(`${process.env.BASE_URL}/products/${img}`);
+    });
+    doc.images = customImages;
+  }
+};
+
+// findone findall update
+ProductSchema.post("init", function (doc) {
+  setImageUrl(doc);
+});
+
+// create
+ProductSchema.post("save", function (doc) {
+  setImageUrl(doc);
+});
+
 const ProductModel = mongoose.model("Product", ProductSchema);
 
 module.exports = ProductModel;

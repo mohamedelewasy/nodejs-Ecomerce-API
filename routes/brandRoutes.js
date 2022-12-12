@@ -6,6 +6,8 @@ const {
   createBrand,
   updateBrand,
   deleteBrand,
+  uploadBrandImage,
+  resizeBrandImage,
 } = require("../services/brandServices");
 
 const {
@@ -18,12 +20,12 @@ const {
 router
   .route("/brands")
   .get(getAllBrands)
-  .post(createBrandValidator, createBrand);
+  .post(uploadBrandImage, resizeBrandImage, createBrandValidator, createBrand);
 
 router
   .route("/brands/:slug")
   .get(getBrandValidator, getBrand)
-  .put(updateBrandValidator, updateBrand)
+  .put(uploadBrandImage, resizeBrandImage, updateBrandValidator, updateBrand)
   .delete(deleteBrandValidator, deleteBrand);
 
 module.exports = router;
