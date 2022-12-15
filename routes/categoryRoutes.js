@@ -17,10 +17,14 @@ const {
   updateCategoryValidator,
 } = require("../validator/categoryVal");
 
+const { protect, allowedTo } = require("../services/authServices");
+
 router
   .route("/categories")
   .get(getAllCategories)
   .post(
+    protect,
+    allowedTo("admin"),
     uploadCategoryImage,
     resizeCategoryImage,
     createCategoryValidator,
@@ -30,11 +34,13 @@ router
   .route("/categories/:slug")
   .get(getCategoryValidator, getCategory)
   .put(
+    protect,
+    allowedTo("admin"),
     uploadCategoryImage,
     resizeCategoryImage,
     updateCategoryValidator,
     updateCategory
   )
-  .delete(deleteCategoryValidator, deleteCategory);
+  .delete(protect, allowedTo("admin"), deleteCategoryValidator, deleteCategory);
 
 module.exports = router;

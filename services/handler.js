@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../errors/apiError");
+const User = require("../models/User");
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const SubCategory = require("../models/SubCategory");
@@ -25,7 +26,7 @@ exports.getSpecificHandler = (model) =>
   asyncHandler(async (req, res, next) => {
     const { id, slug } = req.params;
     const document = await model.findOne(
-      model === Product ? { _id: id } : { slug }
+      model === Product || model === User ? { _id: id } : { slug }
     );
     if (!document)
       return next(
@@ -58,11 +59,12 @@ exports.updateHandler = (model, args = null) =>
   asyncHandler(async (req, res, next) => {
     let { id, slug, categoryId } = req.params;
     let findBy = {};
-    if (model === Product) findBy["_id"] = id;
+    if (model === Product || model === User) findBy["_id"] = id;
     else if (model === SubCategory) {
       findBy["slug"] = slug;
       findBy["category"] = categoryId;
     } else findBy["slug"] = slug;
+
     let document = await model.findOneAndUpdate(findBy, req.body, {
       new: true,
     });

@@ -4,14 +4,17 @@ const category = require("./categoryRoutes");
 const subCategory = require("./subCategoryRoutes");
 const brand = require("./brandRoutes");
 const product = require("./productRoutes");
+const user = require("./userRoutes");
+const auth = require("./authRoutes");
+
+let mainRoutes = [auth, user, category, subCategory, brand, product];
 
 router.get("/", (req, res) => {
   res.send("ok");
 });
 
-router.use("", category);
-router.use("", subCategory);
-router.use("", brand);
-router.use("", product);
+mainRoutes.forEach((route) => {
+  router.use("", route);
+});
 
 module.exports = router;

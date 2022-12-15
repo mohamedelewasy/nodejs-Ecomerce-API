@@ -17,12 +17,14 @@ const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
 
 exports.uploadCategoryImage = uploadSingleImage();
 exports.resizeCategoryImage = asyncHandler(async (req, res, next) => {
-  const imageId = `${Date.now()}.jpeg`;
-  await sharp(req.file.buffer)
-    .resize(600, 600)
-    .toFormat("jpeg")
-    .toFile(`uploads/categories/${imageId}`);
-  req.body.image = imageId;
+  if (req.file) {
+    const imageId = `${Date.now()}.jpeg`;
+    await sharp(req.file.buffer)
+      .resize(600, 600)
+      .toFormat("jpeg")
+      .toFile(`uploads/categories/${imageId}`);
+    req.body.image = imageId;
+  }
   next();
 });
 
