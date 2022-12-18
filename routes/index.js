@@ -6,8 +6,9 @@ const brand = require("./brandRoutes");
 const product = require("./productRoutes");
 const user = require("./userRoutes");
 const auth = require("./authRoutes");
+const review = require("./reviewRoutes");
 
-let mainRoutes = [auth, user, category, subCategory, brand, product];
+let mainRoutes = [product, review, auth, user, category, subCategory, brand];
 
 router.get("/", (req, res) => {
   res.send("ok");

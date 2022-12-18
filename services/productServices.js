@@ -48,7 +48,14 @@ exports.getAllProducts = Handler.getAllHandler(Product);
 // @desc    get specific product by id
 // @route   GET /product/:id
 // @access  public
-exports.getProduct = Handler.getSpecificHandler(Product);
+exports.getProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id).populate("reviews");
+  if (!product)
+    return next(
+      new ApiError(`product not found for this id: ${req.params.id}`, 400)
+    );
+  res.status(200).json({ data: product });
+});
 
 // @desc    create a product
 // @route   POST /product

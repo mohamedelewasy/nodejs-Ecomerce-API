@@ -1,4 +1,5 @@
 const express = require("express");
+const reviewRoutes = require("./reviewRoutes");
 const router = express.Router();
 const {
   getAllProducts,
@@ -18,6 +19,8 @@ const {
 } = require("../validator/productVal");
 
 const { protect, allowedTo } = require("../services/authServices");
+
+router.use("/products/:productId/", reviewRoutes);
 
 router
   .route("/products")

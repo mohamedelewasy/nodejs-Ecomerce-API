@@ -59,6 +59,7 @@ const ProductSchema = new mongoose.Schema(
     },
     ratingAverage: {
       type: Number,
+      default: 0,
       min: [1, "minimum rating is 1"],
       max: [5, "maximum rating is 5"],
     },
@@ -67,7 +68,7 @@ const ProductSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
 // @desc query mongoose middleware to populate
@@ -89,6 +90,13 @@ const setImageUrl = (doc) => {
     doc.images = customImages;
   }
 };
+
+// populate product reviews
+ProductSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "product",
+  localField: "_id",
+});
 
 // findone findall update
 ProductSchema.post("init", function (doc) {

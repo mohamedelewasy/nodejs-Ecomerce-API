@@ -50,7 +50,7 @@ exports.deleteHandler = (model) =>
     const document = await model.findOneAndDelete(findBy);
     if (!document)
       return next(
-        new ApiError(`document not found for this slug: ${slug}`, 404)
+        new ApiError(`document not found for this slug: ${slug}`, 204)
       );
     res.status(200).json({ msg: "deleted successfully", data: document });
   });
