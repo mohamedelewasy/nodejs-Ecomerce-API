@@ -9,14 +9,18 @@ const auth = require("./authRoutes");
 const review = require("./reviewRoutes");
 const withlist = require("./wishlistRoutes");
 const addresses = require("./addressesRoutes");
+const coupons = require("./CouponRoutes");
+const cart = require("./cartRoutes");
 
 let mainRoutes = [
+  auth,
+  cart,
+  coupons,
   addresses,
   withlist,
   product,
-  review,
-  auth,
   user,
+  review,
   category,
   subCategory,
   brand,
