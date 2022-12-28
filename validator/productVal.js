@@ -113,7 +113,7 @@ exports.createProductValidator = [
     .custom(validateBrand),
   check("ratingAverage")
     .optional()
-    .isNumeric({ min: 1, max: 5 })
+    .isNumeric({ min: 0, max: 5 })
     .withMessage("rating average must be a number in range (1-5)"),
   check("ratingsQuantity")
     .optional()

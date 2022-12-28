@@ -108,6 +108,6 @@ ProductSchema.post("save", function (doc) {
   setImageUrl(doc);
 });
 
-const ProductModel = mongoose.model("Product", ProductSchema);
+const ProductModel = mongoose.model("product", ProductSchema);
 
 module.exports = ProductModel;

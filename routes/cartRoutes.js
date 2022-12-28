@@ -18,17 +18,16 @@ const {
 
 const { protect, allowedTo } = require("../services/authServices");
 
-router.use(protect, allowedTo("user"));
-
 router
   .route("/cart")
+  .all(protect, allowedTo("user"))
   .post(addProduct)
   .get(getCart)
   .put(updateProductQuantity)
   .delete(deleteProduct);
 
-router.route("/cart/all").delete(deleteAllProducts);
+router.route("/cart/all").delete(protect, allowedTo("user"), deleteAllProducts);
 
-router.route("/cart/coupon").post(addCoupon);
+router.route("/cart/coupon").post(protect, allowedTo("user"), addCoupon);
 
 module.exports = router;

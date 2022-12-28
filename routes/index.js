@@ -11,24 +11,22 @@ const withlist = require("./wishlistRoutes");
 const addresses = require("./addressesRoutes");
 const coupons = require("./CouponRoutes");
 const cart = require("./cartRoutes");
+const order = require("./orderRoutes");
 
 let mainRoutes = [
+  user,
   auth,
+  product,
   cart,
   coupons,
   addresses,
   withlist,
-  product,
-  user,
   review,
   category,
   subCategory,
   brand,
+  order,
 ];
-
-router.get("/", (req, res) => {
-  res.send("ok");
-});
 
 mainRoutes.forEach((route) => {
   router.use("", route);

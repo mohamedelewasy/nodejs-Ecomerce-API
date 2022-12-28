@@ -17,15 +17,15 @@ const {
 
 const { protect, allowedTo } = require("../services/authServices");
 
-router.use(protect, allowedTo("admin"));
-
 router
   .route("/coupons")
+  .all(protect, allowedTo("admin"))
   .get(getAllCoupons)
   .post(createCouponValidator, createCoupon);
 
 router
   .route("/coupons/:id")
+  .all(protect, allowedTo("admin"))
   .get(getCouponValidator, getCoupon)
   .put(updateCouponValidator, updateCoupon)
   .delete(deleteCouponValidator, deleteCoupon);

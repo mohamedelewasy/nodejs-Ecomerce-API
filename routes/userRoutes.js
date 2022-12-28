@@ -36,23 +36,30 @@ router.route("/users/me/update").put(protect, updateUserLoggedData);
 
 router.route("/users/me/deactivate").get(protect, deactivateUserLoggedData);
 
-router.use(protect, allowedTo("admin"));
-
-router.route("/users/:id/deactivate").get(deactivateUser);
+router
+  .route("/users/:id/deactivate")
+  .get(protect, allowedTo("admin"), deactivateUser);
 
 router
   .route("/users")
+  .all(protect, allowedTo("admin"))
   .get(getAllUsers)
   .post(uploadUserImage, resizeUserImage, createUserValidator, createUser);
 
 router
   .route("/users/:id")
+  .all(protect, allowedTo("admin"))
   .get(getUserValidator, getUser)
   .put(uploadUserImage, resizeUserImage, updateUserValidator, updateUser)
   .delete(deleteUserValidator, deleteUser);
 
 router
   .route("/users/resetpassword/:id")
-  .put(updateUserPasswordValidator, changeUserPassword);
+  .put(
+    protect,
+    allowedTo("admin"),
+    updateUserPasswordValidator,
+    changeUserPassword
+  );
 
 module.exports = router;
